@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create New Item</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
+    <style>
+        @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
+
+        .editor {
+            border: 1px solid #e2e8f0;
+            border-radius: 0.375rem;
+        }
+
+        .editor-toolbar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .editor-toolbar button.active {
+            color: blue;
+        }
+
+        .editor-content {
+            padding: 1rem;
+            min-height: 150px;
+            position: relative;
+        }
+
+        .editor-content img {
+            max-width: 100%;
+            border: 2px solid #3490dc;
+            resize: both;
+            overflow: hidden;
+            position: absolute;
+        }
+
+        .item-picture-preview {
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+        }
+
+        .font-style-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .font-style-dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 12px;
+            z-index: 1;
+            text-align: left;
+        }
+
+        .font-style-dropdown:hover .font-style-dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 h-screen font-sans">
+
+    <div class="container mx-auto p-8">
+
+        <!-- Header -->
+        <header class="bg-white border-b shadow-md p-4 mb-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <img src="avatar.jpg" alt="User Avatar" class="h-10 w-10 object-cover rounded-full mr-2">
+                    <div>
+                        <p class="text-gray-800 font-semibold">John Doe</p>
+                        <p class="text-gray-500 text-sm">Admin</p>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <button class="text-gray-600 focus:outline-none mx-2">Settings</button>
+                    <button class="text-gray-500 text-sm focus:outline-none mx-2">Log out</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Item Details -->
+        <div class="bg-white p-6 rounded-md shadow-md mb-8">
+            <!-- Title -->
+            <h1 class="text-2xl font-semibold text-gray-800 mb-4">Printed Brochure Design</h1>
+            
+            <!-- Description -->
+            <div class="mb-4">
+                <p class="text-sm text-gray-600 mb-2">Description:</p>
+                <div class="prose">
+                    <p>Our client has requested a printed brochure design for their upcoming marketing campaign. The brochure will showcase their products and services, emphasizing quality and innovation.</p>
+                    <p>The design should include vibrant images, engaging content, and a professional layout. The client is targeting a broad audience, so the brochure needs to be visually appealing and convey a sense of credibility.</p>
+                    <p>Here are some key points for the brochure:</p>
+                    <ul>
+                        <li>Eye-catching cover design</li>
+                        <li>Clear and concise product descriptions</li>
+                        <li>Incorporation of the company logo</li>
+                        <li>Use of the company's brand colors</li>
+                    </ul>
+                    <p>Please include high-quality images that reflect the client's brand identity. Additionally, make sure the text is easy to read and complements the overall design.</p>
+                    <img src="https://placekitten.com/800/400" alt="Brochure Design Example" class="mb-4">
+                    <p>Feel free to use the text editor below to draft the content and design elements of the brochure. You can add images, format text, and customize the layout to meet the client's requirements.</p>
+                </div>
+            </div>
+
+            <!-- Additional Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <p class="text-sm text-gray-600 mb-2">Deadline:</p>
+                    <p class="text-lg font-semibold">2023-12-31</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600 mb-2">Customer Name:</p>
+                    <p class="text-lg font-semibold">XYZ Company</p>
+                </div>
+            </div>
+
+            <!-- Type and Item Picture -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <p class="text-sm text-gray-600 mb-2">Type:</p>
+                    <p class="text-lg font-semibold">Brochure Design</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600 mb-2">Item Picture:</p>
+                    <img src="https://placekitten.com/200/200" alt="Item Picture" class="max-w-full h-auto">
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex justify-end">
+            <button class="bg-gray-500 text-white px-4 py-2 rounded-md mr-2 focus:outline-none hover:bg-gray-600">Back</button>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none hover:bg-blue-600">Edit</button>
+        </div>
+
+    </div>
+</body>
+
+</html>
