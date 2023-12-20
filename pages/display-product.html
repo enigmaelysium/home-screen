@@ -4,146 +4,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New Item</title>
+    <title>Printed Brochure Design</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.js" defer></script>
     <style>
         @import url(https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.min.css);
 
-        .editor {
-            border: 1px solid #e2e8f0;
-            border-radius: 0.375rem;
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            color: #1a202c;
         }
 
-        .editor-toolbar button {
-            background: none;
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        header .user-info {
+            margin-left: 10px;
+        }
+
+        header button {
+            color: #4a5568;
+        }
+
+        .section {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .section h1 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            color: #4a5568;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .prose img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .additional-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .additional-details div {
+            background-color: #edf2f7;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .additional-details div p {
+            margin: 0;
+            color: #4a5568;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .action-buttons button {
+            padding: 10px 20px;
+            margin-left: 10px;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
         }
 
-        .editor-toolbar button.active {
-            color: blue;
+        .action-buttons .cancel-button {
+            background-color: #4a5568;
+            color: #ffffff;
         }
 
-        .editor-content {
-            padding: 1rem;
-            min-height: 150px;
-            position: relative;
-        }
-
-        .editor-content img {
-            max-width: 100%;
-            border: 2px solid #3490dc;
-            resize: both;
-            overflow: hidden;
-            position: absolute;
-        }
-
-        .item-picture-preview {
-            max-width: 100px;
-            max-height: 100px;
-            object-fit: cover;
-        }
-
-        .font-style-dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .font-style-dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            padding: 12px;
-            z-index: 1;
-            text-align: left;
-        }
-
-        .font-style-dropdown:hover .font-style-dropdown-content {
-            display: block;
+        .action-buttons .edit-button {
+            background-color: #3490dc;
+            color: #ffffff;
         }
     </style>
 </head>
 
-<body class="bg-gray-100 h-screen font-sans">
+<body>
 
-    <div class="container mx-auto p-8">
-
+    <div class="">
         <!-- Header -->
-        <header class="bg-white border-b shadow-md p-4 mb-8">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <img src="avatar.jpg" alt="User Avatar" class="h-10 w-10 object-cover rounded-full mr-2">
-                    <div>
-                        <p class="text-gray-800 font-semibold">John Doe</p>
-                        <p class="text-gray-500 text-sm">Admin</p>
-                    </div>
+        <header class="flex items-center justify-between p-4 bg-white shadow-md mb-8">
+            <div class="flex items-center">
+                <img src="avatar.jpg" alt="User Avatar">
+                <div class="user-info">
+                    <p class="text-gray-800 font-semibold">John Doe</p>
+                    <p class="text-gray-500 text-sm">Admin</p>
                 </div>
-                <div class="flex items-center">
-                    <button class="text-gray-600 focus:outline-none mx-2">Settings</button>
-                    <button class="text-gray-500 text-sm focus:outline-none mx-2">Log out</button>
-                </div>
+            </div>
+            <div class="flex items-center">
+                <button class="text-gray-600 focus:outline-none mx-2">Settings</button>
+                <button class="text-gray-500 text-sm focus:outline-none mx-2">Log out</button>
             </div>
         </header>
 
         <!-- Item Details -->
-        <div class="bg-white p-6 rounded-md shadow-md mb-8">
+        <div class="section container">
+            <div class="additional-detail mb-4">
+                <!-- Item Picture -->
+                <div>
+                    <img src="https://placekitten.com/100/100" alt="Item Picture">
+                </div>
+            </div>
             <!-- Title -->
-            <h1 class="text-2xl font-semibold text-gray-800 mb-4">Printed Brochure Design</h1>
-            
+            <h1 class="mb-4">Printed Brochure Design</h1>
+
             <!-- Description -->
             <div class="mb-4">
-                <p class="text-sm text-gray-600 mb-2">Description:</p>
+                <p class="text-base text-gray-600 mb-2 font-bold">Description:</p>
                 <div class="prose">
-                    <p>Our client has requested a printed brochure design for their upcoming marketing campaign. The brochure will showcase their products and services, emphasizing quality and innovation.</p>
-                    <p>The design should include vibrant images, engaging content, and a professional layout. The client is targeting a broad audience, so the brochure needs to be visually appealing and convey a sense of credibility.</p>
-                    <p>Here are some key points for the brochure:</p>
-                    <ul>
-                        <li>Eye-catching cover design</li>
-                        <li>Clear and concise product descriptions</li>
-                        <li>Incorporation of the company logo</li>
-                        <li>Use of the company's brand colors</li>
-                    </ul>
-                    <p>Please include high-quality images that reflect the client's brand identity. Additionally, make sure the text is easy to read and complements the overall design.</p>
-                    <img src="https://placekitten.com/800/400" alt="Brochure Design Example" class="mb-4">
-                    <p>Feel free to use the text editor below to draft the content and design elements of the brochure. You can add images, format text, and customize the layout to meet the client's requirements.</p>
+                    <p>Our client has requested a printed brochure design for their upcoming marketing campaign. The
+                        brochure will showcase their products and services, emphasizing quality and innovation.</p>
+                    <p>The design should include vibrant images, engaging content, and a modern layout to capture the
+                        attention of the target audience.</p>
+                    <img src="https://placekitten.com/800/400" alt="Brochure Image 1">
+                    <p>Additionally, the brochure should convey a sense of professionalism and reliability, reflecting
+                        the client's commitment to excellence.</p>
+                    <img src="https://placekitten.com/800/600" alt="Brochure Image 2">
                 </div>
             </div>
 
             <!-- Additional Details -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="additional-details">
+                <!-- Deadline -->
                 <div>
                     <p class="text-sm text-gray-600 mb-2">Deadline:</p>
-                    <p class="text-lg font-semibold">2023-12-31</p>
+                    <p>2023-12-31</p>
                 </div>
+
+                <!-- Customer Name -->
                 <div>
                     <p class="text-sm text-gray-600 mb-2">Customer Name:</p>
-                    <p class="text-lg font-semibold">XYZ Company</p>
+                    <p>ABC Company</p>
                 </div>
-            </div>
 
-            <!-- Type and Item Picture -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Type -->
                 <div>
                     <p class="text-sm text-gray-600 mb-2">Type:</p>
-                    <p class="text-lg font-semibold">Brochure Design</p>
+                    <p>Type 1</p>
                 </div>
-                <div>
-                    <p class="text-sm text-gray-600 mb-2">Item Picture:</p>
-                    <img src="https://placekitten.com/200/200" alt="Item Picture" class="max-w-full h-auto">
-                </div>
+
+                
             </div>
         </div>
 
         <!-- Action Buttons -->
-        <div class="flex justify-end">
-            <button class="bg-gray-500 text-white px-4 py-2 rounded-md mr-2 focus:outline-none hover:bg-gray-600">Back</button>
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-md focus:outline-none hover:bg-blue-600">Edit</button>
+        <div class="action-buttons">
+            <button class="cancel-button">Back</button>
+            <button class="edit-button">Edit</button>
         </div>
-
     </div>
+
 </body>
 
 </html>
