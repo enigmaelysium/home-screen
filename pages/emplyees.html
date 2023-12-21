@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+<div class="container mx-auto p-8" x-data="employeeManager()">
+    <!-- Employee Table -->
+    <div class="mb-8">
+        <h1 class="text-2xl font-bold mb-4">Employee Management</h1>
+        <table class="w-full border rounded-lg overflow-hidden">
+            <!-- Table Headers -->
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="border p-3">Profile Picture</th>
+                    <th class="border p-3">Username</th>
+                    <th class="border p-3">Email</th>
+                    <th class="border p-3">Role</th>
+                    <th class="border p-3">Scccctatus</th>
+                    <th class="border p-3">Actions</th>
+                </tr>
+            </thead>
+            <!-- Table Body (Sample Data, replace with dynamic data) -->
+            <tbody>
+                <tr x-for="employee in employees" :key="employee.id" class="hover:bg-gray-100">
+                    <td class="border p-3">[Profile Picture]</td>
+                    <td class="border p-3" x-text="employee.username"></td>
+                    <td class="border p-3" x-text="employee.email"></td>
+                    <td class="border p-3" x-text="employee.role"></td>
+                    <td class="border p-3" x-text="employee.status"></td>
+                    <td class="border p-3">
+                        <button class="text-blue-500 hover:underline" @click="editEmployee(employee.id)">Edit</button>
+                        <button class="text-red-500 hover:underline" @click="deleteEmployee(employee.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Delete Multiple Employees -->
+    <div class="mb-8">
+        <label class="block text-sm font-medium text-gray-700">Select Employees to Delete</label>
+        <div class="flex items-center space-x-2">
+            <input type="checkbox" class="form-checkbox" id="selectAll" @click="selectAllEmployees">
+            <label for="selectAll" class="text-sm font-medium text-gray-700">Select All</label>
+            <button class="bg-red-500 text-white px-4 py-2 rounded" @click="deleteSelectedEmployees">Delete Selected</button>
+        </div>
+    </div>
+
+    <!-- Create New Employee Profile -->
+    <div>
+        <button class="bg-green-500 text-white px-4 py-2 rounded" @click="createEmployee">Create New Employee</button>
+    </div>
+
+    <!-- Modal for Employee Form -->
+    <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50" x-show="showModal" @click.away="showModal = false">
+        <div class="bg-white p-8 rounded-lg">
+            <!-- Employee Form goes here -->
+            <h2 class="text-2xl font-bold mb-4">Employee Details</h2>
+            <form @submit.prevent="saveEmployee">
+                <!-- Form fields go here -->
+                <div class="mb-4">
+                    <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                    <input type="text" id="username" name="username" class="form-input mt-1 block w-full" x-model="employeeData.username">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" id="email" name="email" class="form-input mt-1 block w-full" x-model="employeeData.email">
+                </div>
+                <div class="mb-4">
+                    <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+                    <input type="text" id="role" name="role" class="form-input mt-1 block w-full" x-model="employeeData.role">
+                </div>
+                <div class="mb-4">
+                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+                    <input type="text" id="status" name="status" class="form-input mt-1 block w-full" x-model="employeeData.status">
+                </div>
+                <div class="flex justify-end">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                    <button type="button" class="ml-2 text-gray-600" @click="closeModal">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+    <script>
+        function employeeManager() {
+            return {
+                employees: [
+                    { id: 1, username: "JohnDoe", email: "john.doe@example.com", role: "Admin", status: "Active" },
+                    // Add more employee data as needed
+                ],
+                selectedEmployees: [],
+                showModal: false,
+                employeeData: { id: null, username: "", email: "", role: "", status: "" },
+
+                editEmployee(employeeId) {
+                    // Find employee by ID
+                    const employee = this.employees.find(e => e.id === employeeId);
+                    // Set employee data for editing
+                    this.employeeData = { ...employee };
+                    // Open the modal
+                    this.showModal = true;
+                },
+
+                deleteEmployee(employeeId) {
+                    // Remove employee from the list
+                    this.employees = this.employees.filter(e => e.id !== employeeId);
+                },
+
+                selectAllEmployees() {
+                    // Toggle selection for all employees
+                    this.selectedEmployees = this.selectedEmployees.length === this.employees.length
+                        ? []
+                        : [...this.employees.map(e => e.id)];
+                },
+
+                deleteSelectedEmployees() {
+                    // Remove selected employees from the list
+                    this.employees = this.employees.filter(e => !this.selectedEmployees.includes(e.id));
+                    // Clear selected employees
+                    this.selectedEmployees = [];
+                },
+
+                createEmployee() {
+                    // Reset employee data for creating a new employee
+                    this.employeeData = { id: null, username: "", email: "", role: "", status: "" };
+                    // Open the modal
+                    this.showModal = true;
+                },
+
+                saveEmployee() {
+                    if (this.employeeData.id) {
+                        // Update existing employee
+                        const index = this.employees.findIndex(e => e.id === this.employeeData.id);
+                        this.employees[index] = { ...this.employeeData };
+                    } else {
+                        // Create a new employee
+                        const newId = this.employees.length + 1;
+                        this.employees.push({ id: newId, ...this.employeeData });
+                    }
+                    // Close the modal
+                    this.showModal = false;
+                },
+
+                closeModal() {
+                    // Close the modal
+                    this.showModal = false;
+                },
+            };
+        }
+    </script>
+</div>
+
+</body>
+</html>
